@@ -1,8 +1,20 @@
-import _ from "lodash";
+import Product from "./product.model";
+import "reflect-metadata";
+import { plainToClass } from "class-transformer";
 
-// Tells typescript that the global variable WILL exist
-declare let GLOBAL: string;
+const products = [
+  { title: "A Carpet", price: 29.99 },
+  { title: "A Book", price: 10.99 },
+];
 
-console.log(_.shuffle([1, 2, 3]));
+// const p1 = new Product("Sonos Arc", 1089);
 
-console.log(GLOBAL);
+// const loadedProducts = products.map((item) => {
+//   return new Product(item.title, item.price);
+// });
+
+const loadedProducts = plainToClass(Product, products);
+
+for (const product of loadedProducts) {
+  console.log(product.getInformation());
+}
